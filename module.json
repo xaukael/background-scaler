@@ -8,7 +8,7 @@
   "url": "https://github.com/xaukael/background-scaler",
   "socket": true,
   "manifest": "https://raw.githubusercontent.com/xaukael/background-scaler/main/module.json",
-  "download": "https://raw.githubusercontent.com/xaukael/background-scaler/main/background-scaler.zip",
+  "download": "https://raw.githubusercontent.com/xaukael/background-scaler/main/background-scaler-main.zip",
   "id": "background-scaler",
   "authors": [
     {
