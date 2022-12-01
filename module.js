@@ -1,5 +1,5 @@
 Hooks.on('renderSceneConfig', async (app, html)=>{
-  html.find('button.grid-config').after($(`<button type="button" class="grid-config" title="Grid Configuration Tool"> <i class="fa-regular fa-square-full"></i></button>`)
+  html.find('button.grid-config').after($(`<button type="button" class="background-scaler" title="Background Scaler"> <i class="fa-regular fa-square-full"></i></button>`)
   .click(async function(){
 		app.minimize();
 		
@@ -52,9 +52,6 @@ Hooks.on('renderSceneConfig', async (app, html)=>{
 			
 			// basically get the variables from the preview which will do nothing if nothing has been changed
 			let imageGridSize = Number($(this).css('background-size').split(' ')[0].split('px')[0])
-			let backgroundPosition = $(this).css('background-position').split(' ');
-			let backgroundOffsetX =  Number(backgroundPosition[1].split('px')[0])
-			let backgroundOffsetY =  Number(backgroundPosition[3].split('px')[0])
 			let scale = canvas.grid.size/imageGridSize;
 			let width = Math.round(canvas.scene.width*scale)
 			let height = Math.round(canvas.scene.height*scale)
