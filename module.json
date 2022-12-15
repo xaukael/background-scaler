@@ -9,6 +9,7 @@
   "manifest": "https://raw.githubusercontent.com/xaukael/background-scaler/main/module.json",
   "download": "https://raw.githubusercontent.com/xaukael/background-scaler/main/background-scaler.zip",
   "id": "background-scaler",
+	"name": "background-scaler",
   "authors": [
     {
       "name": "Xaukael",
