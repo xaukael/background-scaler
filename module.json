@@ -1,7 +1,7 @@
 {
   "title": "Background Scaler",
   "description": "Adds a button to the scene grid configuration tab. Zoom in on map and click the corners of a grid square on the image to scale the grid automatically",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "scripts": [
     "module.js"
   ],
@@ -23,7 +23,7 @@
   "compatibility": {
     "minimum": "9",
     "verified": "10"
-  }
+  },
 	"minimumCoreVersion": "9",
   "compatibleCoreVersion": "10"
 }

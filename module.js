@@ -1,5 +1,5 @@
 Hooks.on('renderSceneConfig', async (app, html)=>{
-  html.find('button.grid-config').after($(`<button type="button" class="background-scaler" title="Background Scaler"> <i class="fa-regular fa-square-full"></i></button>`)
+  html.find('button.grid-config').after($(`<button type="button" class="background-scaler" title="Background Scaler"> <i class="far fa-square"></i></button>`)
   .click(async function(){
 		app.minimize();
 		
