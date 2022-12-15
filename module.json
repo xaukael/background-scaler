@@ -1,12 +1,11 @@
 {
   "title": "Background Scaler",
   "description": "Adds a button to the scene grid configuration tab. Zoom in on map and click the corners of a grid square on the image to scale the grid automatically",
-  "version": "0.0.2",
+  "version": "1.0.0",
   "scripts": [
     "module.js"
   ],
   "url": "https://github.com/xaukael/background-scaler",
-  "socket": true,
   "manifest": "https://raw.githubusercontent.com/xaukael/background-scaler/main/module.json",
   "download": "https://raw.githubusercontent.com/xaukael/background-scaler/main/background-scaler.zip",
   "id": "background-scaler",
@@ -21,7 +20,9 @@
     ]
   },
   "compatibility": {
-    "minimum": "10",
+    "minimum": "9",
     "verified": "10"
   }
+	"minimumCoreVersion": "9",
+  "compatibleCoreVersion": "10"
 }

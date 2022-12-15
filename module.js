@@ -12,13 +12,13 @@ Hooks.on('renderSceneConfig', async (app, html)=>{
 				background-image: 
 					repeating-linear-gradient(#f00 0 3px, transparent 3px 100%),
 					repeating-linear-gradient(90deg, #f00 0 3px, transparent 3px 100%);
-				background-position: top ${canvas.scene.background.offsetY}px left ${canvas.scene.background.offsetX}px;
+				background-position: top ${(game.release?.generation >= 10)?canvas.scene.background.offsetY:canvas.scene.dimensions.shiftY}px left ${(game.release?.generation >= 10)?canvas.scene.background.offsetX:canvas.scene.dimensions.shiftX}px;
 				height: ${canvas.scene.dimensions.sceneRect.height}px; width:${canvas.scene.dimensions.sceneRect.width}px;
 				background-size: ${canvas.dimensions.size}px ${canvas.dimensions.size}px;
 				left: ${canvas.scene.dimensions.sceneRect.x}px; top: ${canvas.scene.dimensions.sceneRect.y}px;">
 				<center class="help-text" style="position: absolute; color: white; pointer-events: none; width: 150px; height: max-content; border: 1px solid var(--color-border-dark);border-radius: 5px; background-image: url(../ui/denim075.png); padding: .5em; margin: 1em;" ><center>
 				</div>`);
-		//background-color: rgba(0, 255, 0, 0.01);
+		//background-color: rgba(0, 255, 0, 0.01);  background-position: top ${canvas.scene.background.offsetY}px left ${canvas.scene.background.offsetX}px;
 		$div.find('.help-text').html("Zoom in a lot to be very accruate with your click. <br><br>Click a top left corner of a grid square on the image.");
 		$div.click(async function(e){
 			let local = canvas.app.renderer.plugins.interaction.mouse.getLocalPosition(canvas.app.stage)
@@ -55,11 +55,20 @@ Hooks.on('renderSceneConfig', async (app, html)=>{
 			let scale = canvas.grid.size/imageGridSize;
 			let width = Math.round(canvas.scene.width*scale)
 			let height = Math.round(canvas.scene.height*scale)
+			if (game.release?.generation < 10) {
+				width = Math.round(canvas.scene.data.width*scale)
+				height = Math.round(canvas.scene.data.height*scale)
+			}
+
 			// update the offsets to the new scale
 			offsetX *=scale;
 			offsetY *=scale;
+			offsetX = Math.round(offsetX);
+			offsetY = Math.round(offsetY);
 			$(`div.canvas-cover`).remove();
-			let updates = { background: { offsetX, offsetY }, width, height }
+			let updates ;
+			if (game.release?.generation >= 10) updates = { background: { offsetX, offsetY }, width, height }
+			else updates = { shiftX: offsetX, shiftY: offsetY , width, height }
 			await canvas.scene.update(updates)
 			app.maximize();
 		});
