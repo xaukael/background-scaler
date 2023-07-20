@@ -10,8 +10,8 @@ Hooks.on('renderSceneConfig', async (app, html)=>{
 		let $div = $(`<div class="canvas-cover" style="position: absolute; display: block; 
 				pointer-events: all; cursor: crosshair; 
 				background-image: 
-					repeating-linear-gradient(#f00 0 3px, transparent 3px 100%),
-					repeating-linear-gradient(90deg, #f00 0 3px, transparent 3px 100%);
+					repeating-linear-gradient(#f00 0 2px, transparent 2px 100%),
+					repeating-linear-gradient(90deg, #f00 0 2px, transparent 2px 100%);
 				background-position: top ${(game.release?.generation >= 10)?canvas.scene.background.offsetY:canvas.scene.dimensions.shiftY}px left ${(game.release?.generation >= 10)?canvas.scene.background.offsetX:canvas.scene.dimensions.shiftX}px;
 				height: ${canvas.scene.dimensions.sceneRect.height}px; width:${canvas.scene.dimensions.sceneRect.width}px;
 				background-size: ${canvas.dimensions.size}px ${canvas.dimensions.size}px;
@@ -21,7 +21,7 @@ Hooks.on('renderSceneConfig', async (app, html)=>{
 		//background-color: rgba(0, 255, 0, 0.01);  background-position: top ${canvas.scene.background.offsetY}px left ${canvas.scene.background.offsetX}px;
 		$div.find('.help-text').html("Zoom in a lot to be very accruate with your click. <br><br>Click a top left corner of a grid square on the image.");
 		$div.click(async function(e){
-			let local = canvas.app.renderer.plugins.interaction.mouse.getLocalPosition(canvas.app.stage)
+			let local = (game.release?.generation < 11)?canvas.app.renderer.plugins.interaction.mouse.getLocalPosition(canvas.app.stage):canvas.app.renderer.plugins.interaction.pointer.getLocalPosition(canvas.app.stage);
 			points.push(local);
 			if (points.length<2) return $(this).find('.help-text').html("Click a bottom right corner of the same grid square on the image.");
 			// array distances between the x's and y's
