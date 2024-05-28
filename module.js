@@ -20,9 +20,15 @@ Hooks.on('renderSceneConfig', async (app, html)=>{
 				</div>`);
 		//background-color: rgba(0, 255, 0, 0.01);  background-position: top ${canvas.scene.background.offsetY}px left ${canvas.scene.background.offsetX}px;
 		$div.find('.help-text').html("Zoom in a lot to be very accruate with your click. <br><br>Click a top left corner of a grid square on the image.");
-		$div.click(async function(e){
-			let local = (game.release?.generation < 11)?canvas.app.renderer.plugins.interaction.mouse.getLocalPosition(canvas.app.stage):canvas.app.renderer.plugins.interaction.pointer.getLocalPosition(canvas.app.stage);
+		$div.click(async function(e){//{x: e.offsetX, y: e.offsetY}// 
+			let local 
+				if (game.release?.generation>=12) {
+					let {x,y} = canvas.mousePosition
+					local = {x, y}
+				}
+				else local = canvas.app.renderer.plugins.interaction[game.release?.generation<11?'mouse':'pointer'].getLocalPosition(canvas.app.stage)
 			points.push(local);
+			console.log(local)
 			if (points.length<2) return $(this).find('.help-text').html("Click a bottom right corner of the same grid square on the image.");
 			// array distances between the x's and y's
 			let distances = points.reduce((a,p,i,arr)=>{
@@ -31,7 +37,7 @@ Hooks.on('renderSceneConfig', async (app, html)=>{
 				a.push(arr[i+1].y-p.y);
 				return a
 			},[])
-			
+			console.log(points)
 			if (points.length!=2) return;
 			// if we have at least two points and thus distances has something, get the average distance
 			sizes.push(distances.reduce((a,x)=>a+=x)/distances.length)
@@ -59,7 +65,7 @@ Hooks.on('renderSceneConfig', async (app, html)=>{
 				width = Math.round(canvas.scene.data.width*scale)
 				height = Math.round(canvas.scene.data.height*scale)
 			}
-
+			console.log(scale, width, height)
 			// update the offsets to the new scale
 			offsetX *=scale;
 			offsetY *=scale;
@@ -69,6 +75,8 @@ Hooks.on('renderSceneConfig', async (app, html)=>{
 			let updates ;
 			if (game.release?.generation >= 10) updates = { background: { offsetX, offsetY }, width, height }
 			else updates = { shiftX: offsetX, shiftY: offsetY , width, height }
+			
+			console.log(updates)
 			await canvas.scene.update(updates)
 			app.maximize();
 		});
